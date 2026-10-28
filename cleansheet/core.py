@@ -117,7 +117,7 @@ def make_dashboard(df, quality, missing, numeric, path):
     if missing.empty: ax.text(.5,.5,"No missing values",ha="center",va="center",transform=ax.transAxes); ax.axis("off")
     else: v=missing.sort_values(); ax.barh(v.index.astype(str),v.values); ax.set_xlabel("% missing")
     ax.set_title("Missing values by column")
-    ax=axes[0,1]; ax.barh(["Quality"],[quality["score"]],xlim=(0,100)); ax.set_title(f"Quality score: {quality['score']}/100")
+    ax=axes[0,1]; ax.barh(["Quality"],[quality["score"]]); ax.set_xlim(0,100); ax.set_title(f"Quality score: {quality['score']}/100")
     cols=[c for c in numeric if not _looks_like_id(c,df[c])]
     ax=axes[1,0]
     if len(cols)>=2: sns.heatmap(df[cols].corr(),annot=len(cols)<=8,fmt=".2f",cmap="coolwarm",vmin=-1,vmax=1,ax=ax); ax.set_title("Numeric correlations")
@@ -135,7 +135,7 @@ def build_report_markdown(source, df, original_rows, original_cols, dupes, log, 
     if log:
         lines += ["| Column | Action | Detail | Values affected |","|---|---|---|---:|"]
         for x in log:
-            detail = str(x["detail"]).replace("|", "\\\\|")
+            detail = str(x["detail"]).replace("|", "\\|")
             lines.append(f"| {x['column']} | {x['action']} | {detail} | {x.get('values_affected',0)} |")
     else: lines.append("_No transformations were necessary._")
     lines += ["","## Missing values",""]
