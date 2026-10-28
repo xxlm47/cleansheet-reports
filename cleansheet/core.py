@@ -134,7 +134,9 @@ def build_report_markdown(source, df, original_rows, original_cols, dupes, log, 
     lines += ["","## Shape","","| Metric | Value |","|---|---:|",f"| Original rows | {original_rows} |",f"| Cleaned rows | {len(df)} |",f"| Duplicates removed | {dupes} |",f"| Original columns | {original_cols} |","","## Transformation log",""]
     if log:
         lines += ["| Column | Action | Detail | Values affected |","|---|---|---|---:|"]
-        lines += [f"| {x['column']} | {x['action']} | {str(x['detail']).replace('|','\\|')} | {x.get('values_affected',0)} |" for x in log]
+        for x in log:
+            detail = str(x["detail"]).replace("|", "\\\\|")
+            lines.append(f"| {x['column']} | {x['action']} | {detail} | {x.get('values_affected',0)} |")
     else: lines.append("_No transformations were necessary._")
     lines += ["","## Missing values",""]
     if missing.empty: lines.append("_No missing values detected._")
