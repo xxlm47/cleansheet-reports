@@ -1,0 +1,7 @@
+id,customer,amount,order_date,email
+1,  Alice  ,"$1,200.50",2024-01-15,alice@example.com
+2,Bob,$250.00,2024-01-16,bob@example.com
+3,Bob,$250.00,2024-01-16,bob@example.com
+4,  Carol,"Smith, John 123",2024-01-17,carol@example.com
+5,Dan,$99.99,2024-01-18,dan@example.com
+6,Erin,"(100.00)",2024-01-19,erin@example.com
